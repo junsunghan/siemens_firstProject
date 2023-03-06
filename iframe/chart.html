@@ -1,0 +1,85 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<script
+  type="text/javascript"
+  src="https://www.gstatic.com/charts/loader.js"
+></script>
+
+<h1>차트</h1>
+<button onclick="start()">영화순위보기</button>
+<!-- <div>
+  <ol></ol>
+</div> -->
+<div id="chart_div"></div>
+
+<script>
+  //영화 순위 공공데이터API
+
+  let movieN = new Array();
+  let movieC = new Array();
+  let date = new Date();
+  let date2 =
+    date.getFullYear() +
+    ("0" + (1 + date.getMonth())).slice(-2) +
+    ("0" + (date.getDate()-2)).slice(-2);
+
+  $.ajax({
+    url: "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
+    data: {
+      key: "f5eef3421c602c6cb7ea224104795888",
+      targetDt: date2,
+    },
+    success: function (result) {
+      console.log(result);
+      let movieList = result.boxOfficeResult.dailyBoxOfficeList;
+      let movie_list_cnt = result.boxOfficeResult.dailyBoxOfficeList;
+      //$("ol").empty();
+      for (let i = 0; i < movieList.length; i++) {
+        movieN.push(movieList[i].movieNm);
+        movieC.push(movie_list_cnt[i].audiCnt);
+      }
+    },
+    error: function () {
+      alert("error");
+    },
+  });
+
+  //구글차트 그리기
+  function start() {
+    // Load the Visualization API and the corechart package.
+    google.charts.load("current", { packages: ["corechart"] });
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+      // Create the data table.
+      var data = new google.visualization.DataTable();
+      data.addColumn("string", "영화제목");
+      data.addColumn("number", "관객수");
+      data.addRows([
+        [movieN[0], parseInt(movieC[0])],
+        [movieN[1], parseInt(movieC[1])],
+        [movieN[2], parseInt(movieC[2])],
+        [movieN[3], parseInt(movieC[3])],
+        [movieN[4], parseInt(movieC[4])],
+      ]);
+
+      // Set chart options
+      var options = {
+        title: "영화 관객 수",
+        width: 400,
+        height: 300,
+      };
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.BarChart(
+        document.getElementById("chart_div")
+      );
+      chart.draw(data, options);
+    }
+  }
+</script>

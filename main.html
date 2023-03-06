@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>자기준성소개</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="./main.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="head">
+        <ul>
+          <li onclick="move('map')" class="head_li"><img src="./public/map.png"></li>
+          <li onclick="move('profile')" class="head_li"><img src="./public/js.png"></li>
+          <li onclick="move('chart')" class="head_li"><img src="./public/bar-chart.png"></li>
+        </ul>
+      </div>
+
+      <div class="main">
+        <iframe
+          class="iframeE"
+          src="./iframe/profile.html"
+          frameborder="0"
+          style="width: 100%; height: 100%"
+        >
+        </iframe>
+      </div>
+
+      <div class="foot">
+        <ul>
+          <li>
+            <img src="public/insta.png" onclick="window.open('https://www.instagram.com/junsung_han')"/>
+          </li>
+          <li>
+            <img src="public/github.png" onclick="window.open('https://github.com/junsunghan')"/>
+          </li>
+          <li>
+            <img src="public/blog.png" onclick="window.open('https://webcodinglove.tistory.com')"/>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <script>
+      //iframe을 통해 메인페이지 전환
+      function move(url) {
+        $(".iframeE").attr("src", "./iframe/" + url + ".html");
+      }
+    </script>
+  </body>
+</html>
