@@ -10,17 +10,18 @@
     <div class="wrap">
       <div class="head">
         <ul>
-          <li onclick="move('map')" class="head_li"><img src="./public/map.png"></li>
-          <li onclick="move('profile')" class="head_li"><img src="./public/js.png"></li>
-          <li onclick="move('chart')" class="head_li"><img src="./public/bar-chart.png"></li>
+          <li onclick="move('map')" class="head_li"><img class="head_img" src="./public/map.png"></li>
+          <li onclick="move('profile')" class="head_li"><img class="head_img" src="./public/js.png"></li>
+          <li onclick="move('chart')" class="head_li"><img class="head_img" src="./public/bar-chart.png"></li>
         </ul>
       </div>
 
-      <div class="main">
+      <div class="main" style="width:100%;">
         <iframe
           class="iframeE"
           src="./iframe/profile.html"
           frameborder="0"
+          scrolling ="no"
           style="width: 100%; height: 100%"
         >
         </iframe>
