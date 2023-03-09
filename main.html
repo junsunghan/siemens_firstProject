@@ -44,9 +44,12 @@
     </div>
     <script>
       //iframe을 통해 메인페이지 전환
-      function move(url) {
+      let move = (url) => ($(".iframeE").attr("src", "./iframe/" + url + ".html"));
+      /*
+       function move(url) {
         $(".iframeE").attr("src", "./iframe/" + url + ".html");
       }
+      */
     </script>
   </body>
 </html>

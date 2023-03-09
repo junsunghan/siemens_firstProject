@@ -2,16 +2,80 @@
   type="text/javascript"
   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0631c867fef68b765080e11dcc72234b"
 ></script>
-<h1>맵</h1>
-<div id="map" style="width: 500px; height: 400px"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+<script
+  type="text/javascript"
+  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0631c867fef68b765080e11dcc72234b&libraries=services,clusterer,drawing"
+></script>
+
+
+
+<!--부트스트랩 적용 CDN 1-->
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+  crossorigin="anonymous"
+/>
+
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+      <h1 id="map_name">카카오 지도</h1>
+      <div id="map" style="width: 500px; height: 400px"></div>
+    </div>
+    <div class="col">
+      <div>
+        <button onclick="create_map()">준성 집</button>
+        <button onclick="create_map('37.4570', '126.7044', '유키돈까스')">
+          추천 맛집
+        </button>
+      </div>
+      <div></div>
+    </div>
+  </div>
+</div>
 <script>
-  // 카카오 지도 API 시작
-  var container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
-  var options = {
-    //지도를 생성할 때 필요한 기본 옵션
-    center: new kakao.maps.LatLng(37.4561636344619, 126.71133809339524), //지도의 중심좌표.
-    level: 3, //지도의 레벨(확대, 축소 정도)
-  };
-  var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-  // 카카오 지도 API 끝
+  create_map();
+  function create_map(
+    a = "37.4561636344619",
+    b = "126.71133809339524",
+    c = "준성집"
+  ) {
+    // 카카오 지도 API 시작
+    let container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
+    let options = {
+      //지도를 생성할 때 필요한 기본 옵션
+      center: new kakao.maps.LatLng(a, b), //지도의 중심좌표.
+      level: 3, //지도의 레벨(확대, 축소 정도)
+    };
+    let map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    // 카카오 지도 API 끝
+
+    let marker = new kakao.maps.Marker({
+      // 지도 중심좌표에 마커를 생성합니다
+      position: map.getCenter(),
+    });
+
+    // 인포윈도우로 장소에 대한 설명을 표시합니다
+    let infowindow = new kakao.maps.InfoWindow({
+      content:
+        // '<div style="width:150px;text-align:center;padding:6px 0;">'+c+'</div>',
+        `<div style="width:150px;text-align:center;padding:6px 0;">${c}</div>`,
+    });
+    infowindow.open(map, marker);
+
+    // 지도에 마커를 표시합니다
+    marker.setMap(map);
+
+    $('#map_name').html(c)
+  }
 </script>
+
+<!--부트스트랩 적용 CDN 2-->
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+  crossorigin="anonymous"
+></script>

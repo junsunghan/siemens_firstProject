@@ -1,0 +1,134 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<script
+  type="text/javascript"
+  src="https://www.gstatic.com/charts/loader.js"
+></script>
+
+<h1>차트</h1>
+<button onclick="boxoffice_yesterday_chart()">영화순위보기</button>
+<!-- <button onclick="boxoffice_week()">주간박스오피스</button> -->
+<input id="test" type="date" />
+<button onclick="date_check()">확인</button>
+<script></script>
+<!-- <div>
+  <ol></ol>
+</div> -->
+<div id="chart_div"></div>
+
+<script>
+  let date = new Date();
+  let movieN = new Array(); //영화 이름
+  let movieC = new Array(); //당일 관객 수
+  //달력 오늘날짜 넣기
+
+  let today_date =
+    date.getFullYear() +
+    "-" +
+    ("0" + (1 + date.getMonth())).slice(-2) +
+    "-" +
+    ("0" + (date.getDate() - 2)).slice(-2);
+console.log(today_date);
+  $("#test").attr("value", today_date);
+
+  //차트에 뿌려줄 날짜 설정하기
+  let date_check = () => {
+    let a = $("#test").val();
+    let dat1 = a.substring(0, 4) + a.substring(5, 7) + a.substring(8, 10);
+    console.log(dat1);
+
+    //영화 순위 갖고 오기 - 공공데이터API
+
+    // let movieN = new Array(); //영화 이름
+    // let movieC = new Array(); //당일 관객 수
+    let date2 =
+      date.getFullYear() +
+      ("0" + (1 + date.getMonth())).slice(-2) +
+      ("0" + (date.getDate() - 2)).slice(-2);
+
+    //전날 박스오피스
+    $.ajax({
+      url: "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
+      data: {
+        key: "f5eef3421c602c6cb7ea224104795888",
+        targetDt: dat1,
+      },
+      success: function (result) {
+        console.log(result);
+        let movieList = result.boxOfficeResult.dailyBoxOfficeList;
+        let movie_list_cnt = result.boxOfficeResult.dailyBoxOfficeList;
+        for (let i = 0; i < movieList.length; i++) {
+          movieN.push(movieList[i].movieNm);
+          movieC.push(movie_list_cnt[i].audiCnt);
+        }
+      },
+      error: function () {
+        alert("error");
+      },
+    });
+  };
+
+  //구글차트 그리기 - 전날 박스오피스 순위
+  let boxoffice_yesterday_chart = () => {
+    // Load the Visualization API and the corechart package.
+    google.charts.load("current", { packages: ["corechart"] });
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+
+    console.log(movieN, movieC);
+
+    function drawChart() {
+      // Create the data table.
+      let data = new google.visualization.DataTable();
+      data.addColumn("string", "영화제목");
+      data.addColumn("number", "관객수");
+      data.addRows([
+        [movieN[0], parseInt(movieC[0])],
+        [movieN[1], parseInt(movieC[1])],
+        [movieN[2], parseInt(movieC[2])],
+        [movieN[3], parseInt(movieC[3])],
+        [movieN[4], parseInt(movieC[4])],
+      ]);
+
+      // Set chart options
+      let options = {
+        title: "영화 관객 수",
+        width: 400,
+        height: 300,
+      };
+
+      // Instantiate and draw our chart, passing in some options.
+      let chart = new google.visualization.BarChart(
+        document.getElementById("chart_div")
+      );
+      chart.draw(data, options);
+
+      movieN = [];
+      movieC = [];
+    }
+  };
+
+  //dddddddddddddddddddddd
+  //dddddddddddddddddddddd
+  //dddddddddddddddddddddd
+
+  // let boxoffice_week = () => {
+  //   $.ajax({
+  //     url: "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json",
+  //     data: {
+  //       key: "f5eef3421c602c6cb7ea224104795888",
+  //       targetDt: 20230308,
+  //       weekGb: 0,
+  //     },
+  //     success: function (result) {
+  //       console.log(1);
+  //       console.log(result);
+  //     },
+  //   });
+  // };
+</script>
