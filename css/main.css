@@ -28,7 +28,7 @@ li{
     padding: 5px;
 }
 
-.wrap{
+#wrap{
     margin: auto;
     padding: 0;
     width: 1000px;
@@ -36,12 +36,12 @@ li{
 
 }
 
-.main{
+#content{
     height: 65%;
     width: 100%;
 }
 
-.head{
+#header{
     background-color: blanchedalmond;
     height: 25%;
     width: 100%;
@@ -54,7 +54,7 @@ li{
 }
 
 
-.foot{
+#footer{
     background-color: blanchedalmond;
     height: 10%;
     width: 100%;

@@ -7,16 +7,17 @@
     <link rel="stylesheet" href="./css/main.css" />
   </head>
   <body>
-    <div class="wrap">
-      <div class="head">
-        <ul>
-          <li onclick="move('map')" class="head_li"><img class="head_img" src="./public/map.png"></li>
-          <li onclick="move('profile')" class="head_li"><img class="head_img" src="./public/js.png"></li>
-          <li onclick="move('chart')" class="head_li"><img class="head_img" src="./public/bar-chart.png"></li>
+    <div id="wrap">
+      <div id="header">
+        <ul><!--iframe을 이용하여 화면 변경할 때 페이지 주소만 변경하는 이벤트 추가-->
+          <li onclick="move('map')" class="head_li"><img class="head_img" src="./img/map.png"></li>
+          <li onclick="move('profile')" class="head_li"><img class="head_img" src="./img/door.png"></li>
+          <li onclick="move('chart')" class="head_li"><img class="head_img" src="./img/bar-chart.png"></li>
         </ul>
       </div>
 
-      <div class="main" style="width:100%;">
+      <!--iframe을 통해 화면 출력-->
+      <div id="content" style="width:100%;">
         <iframe
           class="iframeE"
           src="./iframe/profile.html"
@@ -27,16 +28,16 @@
         </iframe>
       </div>
 
-      <div class="foot">
+      <div id="footer">
         <ul>
           <li>
-            <img src="public/insta.png" onclick="window.open('https://www.instagram.com/junsung_han')"/>
+            <img src="img/insta.png" onclick="window.open('https://www.instagram.com/junsung_han')"/>
           </li>
           <li>
-            <img src="public/github.png" onclick="window.open('https://github.com/junsunghan')"/>
+            <img src="img/github.png" onclick="window.open('https://github.com/junsunghan')"/>
           </li>
           <li>
-            <img src="public/blog.png" onclick="window.open('https://webcodinglove.tistory.com')"/>
+            <img src="img/blog.png" onclick="window.open('https://webcodinglove.tistory.com')"/>
           </li>
           
         </ul>
@@ -45,11 +46,6 @@
     <script>
       //iframe을 통해 메인페이지 전환
       let move = (url) => ($(".iframeE").attr("src", "./iframe/" + url + ".html"));
-      /*
-       function move(url) {
-        $(".iframeE").attr("src", "./iframe/" + url + ".html");
-      }
-      */
     </script>
   </body>
 </html>

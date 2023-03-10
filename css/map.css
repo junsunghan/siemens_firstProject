@@ -1,0 +1,11 @@
+.map_site {
+    margin-top: 25%;
+    padding: 2%;
+    height: 13%;
+   
+  }
+  .map_site button{
+    font-family: 'Nanum Brush Script', cursive;
+    font-size: 30px;
+    margin: 2%;
+  }

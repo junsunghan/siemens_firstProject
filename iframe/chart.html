@@ -1,23 +1,28 @@
+  <!--구글 한글 폰트-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Black+Han+Sans&family=Cute+Font&family=Do+Hyeon&family=Dokdo&family=East+Sea+Dokdo&family=Gaegu&family=Gamja+Flower&family=Gothic+A1&family=Gugi&family=Hi+Melody&family=Jua&family=Kirang+Haerang&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Noto+Serif+KR&family=Poor+Story&family=Single+Day&family=Song+Myung&family=Stylish&family=Sunflower:wght@300&family=Yeon+Sung&display=swap"
+    rel="stylesheet"
+  />
+  
+  <style>
+    h1{
+      font-family: 'Nanum Brush Script', cursive;
+    }
+  </style>
+
+
+<!--jQuery CDN-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
+<!--Google 차트 라이브러리-->
 <script
   type="text/javascript"
   src="https://www.gstatic.com/charts/loader.js"
 ></script>
 
-
-<!--구글 한글 폰트-->
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-  href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Black+Han+Sans&family=Cute+Font&family=Do+Hyeon&family=Dokdo&family=East+Sea+Dokdo&family=Gaegu&family=Gamja+Flower&family=Gothic+A1&family=Gugi&family=Hi+Melody&family=Jua&family=Kirang+Haerang&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Noto+Serif+KR&family=Poor+Story&family=Single+Day&family=Song+Myung&family=Stylish&family=Sunflower:wght@300&family=Yeon+Sung&display=swap"
-  rel="stylesheet"
-/>
-
-<style>
-  h1{
-    font-family: 'Nanum Brush Script', cursive;
-  }
-</style>
+<!--chart JS 불러오기-->
+<script defer src="../js/chart.js"></script>
 
 
 
@@ -27,134 +32,5 @@
   <input id="cal" type="date" />
   <div id="chart_div" style="padding-left: 25%"></div>
 </div>
-<script>
-  let date = new Date();
-  let movieN = new Array(); //영화 이름
-  let movieC = new Array(); //당일 관객 수
 
-  //달력 오늘날짜 넣기
-  let today_date =
-    date.getFullYear() +
-    "-" +
-    ("0" + (1 + date.getMonth())).slice(-2) +
-    "-" +
-    ("0" + (date.getDate())).slice(-2);
-  console.log(today_date);
-  $("#cal").attr("value", today_date);
 
-  $("#cal").change(function () {
-    date_check1(date_check);
-  });
-
-  let date_check1 = (callback) => {
-    let a = $("#cal").val();
-
-    if (a < "20000101") {
-      alert("2000년대 이후로 입력해주세요!!!");
-    } else if (a > today_date) {
-      alert("당일보다 하루 전날 까지 출력됩니다!!!");
-    } else {
-      let taget_day =
-        a.substring(0, 4) + a.substring(5, 7) + a.substring(8, 10);
-      callback(taget_day, boxoffice_yesterday_chart);
-    }
-  };
-
-  //차트에 뿌려줄 날짜 설정하기
-  let date_check = (taget_day) => {
-    console.log(taget_day);
-
-    //영화 순위 갖고 오기 - 공공데이터API
-
-    // let movieN = new Array(); //영화 이름
-    // let movieC = new Array(); //당일 관객 수
-
-    //전날 박스오피스
-    $.ajax({
-      url: "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
-      data: {
-        key: "f5eef3421c602c6cb7ea224104795888",
-        targetDt: taget_day,
-      },
-      success: function (result) {
-        console.log(result);
-        let movieList = result.boxOfficeResult.dailyBoxOfficeList;
-        let movie_list_cnt = result.boxOfficeResult.dailyBoxOfficeList;
-        for (let i = 0; i < movieList.length; i++) {
-          movieN.push(movieList[i].movieNm);
-          movieC.push(movie_list_cnt[i].audiCnt);
-        }
-      },
-      error: function () {
-        alert("error");
-      },
-      complete: function () {
-        boxoffice_yesterday_chart();
-      },
-    });
-  };
-
-  //구글차트 그리기 - 전날 박스오피스 순위
-  let boxoffice_yesterday_chart = () => {
-    // Load the Visualization API and the corechart package.
-    google.charts.load("current", { packages: ["corechart"] });
-
-    // Set a callback to run when the Google Visualization API is loaded.
-    google.charts.setOnLoadCallback(drawChart);
-
-    // Callback that creates and populates a data table,
-    // instantiates the pie chart, passes in the data and
-    // draws it.
-
-    console.log(movieN, movieC);
-
-    function drawChart() {
-      // Create the data table.
-      let data = new google.visualization.DataTable();
-      data.addColumn("string", "영화제목");
-      data.addColumn("number", "관객수");
-      data.addRows([
-        [movieN[0], parseInt(movieC[0])],
-        [movieN[1], parseInt(movieC[1])],
-        [movieN[2], parseInt(movieC[2])],
-        [movieN[3], parseInt(movieC[3])],
-        [movieN[4], parseInt(movieC[4])],
-      ]);
-
-      // Set chart options
-      let options = {
-        title: "영화 관객 수",
-        width: 500,
-        height: 400,
-      };
-
-      // Instantiate and draw our chart, passing in some options.
-      let chart = new google.visualization.BarChart(
-        document.getElementById("chart_div")
-      );
-      chart.draw(data, options);
-
-      movieN = [];
-      movieC = [];
-    }
-  };
-
-  //dddddddddddddddddddddd
-  //dddddddddddddddddddddd
-  //dddddddddddddddddddddd
-
-  // let boxoffice_week = () => {
-  //   $.ajax({
-  //     url: "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json",
-  //     data: {
-  //       key: "f5eef3421c602c6cb7ea224104795888",
-  //       targetDt: 20230308,
-  //       weekGb: 0,
-  //     },
-  //     success: function (result) {
-  //       console.log(1);
-  //       console.log(result);
-  //     },
-  //   });
-  // };
-</script>
