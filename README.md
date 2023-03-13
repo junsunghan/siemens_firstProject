@@ -41,18 +41,18 @@ FrontEnd  요구사항
 
 # 시연 영상
 
-메인화면
+### 메인화면
 
 ![메인화면](https://user-images.githubusercontent.com/59075441/224632603-5a8d77a0-d0ff-4ff1-8853-b7c2d8ad3d96.gif)
 ======================================  
 
 
-지도
+### 지도
 
 ![지도](https://user-images.githubusercontent.com/59075441/224632669-5f825935-5949-45e1-a7c8-a51b189ffa11.gif)
 ======================================  
 
-차트
+### 차트
 
 ![차트](https://user-images.githubusercontent.com/59075441/224632502-035a9712-c908-4579-b1fe-c6c058653dde.gif)
 ======================================  
