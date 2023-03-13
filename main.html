@@ -10,16 +10,15 @@
     <div id="wrap">
       <div id="header">
         <ul><!--iframe을 이용하여 화면 변경할 때 페이지 주소만 변경하는 이벤트 추가-->
-          <li onclick="move('map')" class="head_li"><img class="head_img" src="./img/map.png"></li>
-          <li onclick="move('profile')" class="head_li"><img class="head_img" src="./img/door.png"></li>
-          <li onclick="move('chart')" class="head_li"><img class="head_img" src="./img/bar-chart.png"></li>
+          <li onclick="move('map')" class="head_lst"><img src="./img/map.png"></li>
+          <li onclick="move('profile')" class="head_lst"><img src="./img/door.png"></li>
+          <li onclick="move('chart')" class="head_lst"><img src="./img/bar-chart.png"></li>
         </ul>
       </div>
-
       <!--iframe을 통해 화면 출력-->
       <div id="content" style="width:100%;">
         <iframe
-          class="iframeE"
+          class="iframe_content"
           src="./iframe/profile.html"
           frameborder="0"
           scrolling ="no"
@@ -45,7 +44,7 @@
     </div>
     <script>
       //iframe을 통해 메인페이지 전환
-      let move = (url) => ($(".iframeE").attr("src", "./iframe/" + url + ".html"));
+      let move = (url) => ($(".iframe_content").attr("src", "./iframe/" + url + ".html"));
     </script>
   </body>
 </html>

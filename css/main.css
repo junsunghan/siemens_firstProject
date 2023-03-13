@@ -11,10 +11,6 @@ img{
     padding: 10px;
     cursor: pointer;
 }
-/* img:hover{
-    cursor: pointer;
-
-} */
 
 ul{
     margin: 0;
@@ -47,7 +43,7 @@ li{
     width: 100%;
 }
 
-.head_img{
+.head_lst img{
     width:100px;
     height: 100px;
     margin: 35px;

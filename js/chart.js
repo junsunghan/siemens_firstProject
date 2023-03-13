@@ -30,12 +30,12 @@ let call_chart = () => {
       sel_date.substring(0, 4) +
       sel_date.substring(5, 7) +
       sel_date.substring(8, 10);
-    date_check(taget_day); // 제어문 통과하면 박스오피스 불러오는 함수 호출
+    box_office(taget_day); // 제어문 통과하면 박스오피스 불러오는 함수 호출
   }
 };
 
 //박스오피스 불러오는 함수
-let date_check = (taget_day) => {
+let box_office = (taget_day) => {
   $.ajax({
     url: "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
     data: {
@@ -56,13 +56,13 @@ let date_check = (taget_day) => {
       alert("error");
     },
     complete: function () {
-      boxoffice_yesterday_chart(); //콜백함수 대신 jQuery ajax를 통해 제어
+      box_office_chart(); //콜백함수 대신 jQuery ajax를 통해 제어
     },
   });
 };
 
 //구글차트 그리기API - 박스오피스 순위
-let boxoffice_yesterday_chart = () => {
+let box_office_chart = () => {
   // Load the Visualization API and the corechart package.
   google.charts.load("current", { packages: ["corechart"] });
 
@@ -95,7 +95,7 @@ let boxoffice_yesterday_chart = () => {
 
     // Instantiate and draw our chart, passing in some options.
     let chart = new google.visualization.BarChart(
-      document.getElementById("chart_div")
+      document.getElementById("chart_dv")
     );
     chart.draw(data, options);
 
@@ -104,3 +104,6 @@ let boxoffice_yesterday_chart = () => {
     movieC = [];
   }
 };
+
+
+//f5eef3421c602c6cb7ea224104795888

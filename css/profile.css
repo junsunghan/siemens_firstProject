@@ -7,13 +7,13 @@
     margin-left: 12px;
 }
 
-.profile_ul{
+.profile_lst{
     margin: 0;
     margin-top: 3%;
     text-align: left;
 }
 
-.profile_ul li{
+.profile_lst li{
     list-style: none;
     font-size: 30px;
     font-weight: bold;
@@ -21,13 +21,13 @@
 }
 
 
-.language_ul{
+.language_lst{
     margin: 0;
     text-align: center;
     margin-top: 3%;
 }
 
-.language_ul li{
+.language_lst li{
     list-style: none;
     display: inline-block;
     padding: 5px;
@@ -46,13 +46,13 @@ h1{
     font-size: 10px;
 }
 
-.history_ul{
+.history_lst{
     margin: 0;
     margin-top: 3%;
     text-align: left;
 }
 
-.history_ul li{
+.history_lst li{
     margin: auto;
 	padding-left: 20px;
     font-family: 'Nanum Brush Script', cursive;
